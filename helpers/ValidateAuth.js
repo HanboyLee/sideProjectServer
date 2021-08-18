@@ -4,18 +4,17 @@ const data = require('./data');
 const { ApolloError } = require('apollo-server-express');
 const User = require('../models/User');
 
-exports.AuthAdmin = (callback) => async (parent, args, context) => {
-    // console.log(parent, args, context, 123);
+exports.AuthAdmin = (callback) => async (parent, args, ctx) => {
+    console.log(ctx, 123);
     try {
-        if (!context.user.account) {
+        if (!ctx.account) {
             throw new Error(data.errorText.errorMessage);
         }
 
-        if (context.user.role !== data.AuthText.ADMIN) {
+        if (ctx.role !== data.AuthText.ADMIN) {
             throw new Error(data.errorText.errorVaildate);
         }
-        console.log(parent, args, context);
-        return callback(parent, args, context);
+        return callback(parent, args, ctx);
     } catch (err) {
         console.log(err);
     }

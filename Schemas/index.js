@@ -1,9 +1,10 @@
 const { makeExecutableSchema } = require('graphql-tools');
 
-const executableSchema = makeExecutableSchema({
-    typeDefs: require('./TypeDefs').typeDefs,
-    resolvers: require('./Resolvers'),
-});
-module.exports = {
-    executableSchema,
+exports.executableSchema = {
+    typeDefs: require('./graphql').mergeType.typeDefs,
+    resolvers: require('./graphql').mergeType.resolvers,
 };
+// const executableSchema = makeExecutableSchema({
+//     typeDefs: require('./graphql').mergeType.typeDefs,
+//     resolvers: require('./graphql').mergeType.resolvers,
+// });

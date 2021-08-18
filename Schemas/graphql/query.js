@@ -5,6 +5,9 @@ exports.typeDefs = gql`
     type Query {
         "get All User"
         getAllUsers(ids: [ID!]): [UserType]
-        getAllUser(id: ID!): UserType
+        "get User"
+        getUser(id: ID!): UserType
+        "get current user"
+        me: AuthData
     }
 `;

@@ -35,14 +35,14 @@ module.exports = passport.use(
         // }
 
         switch (user.role) {
-            case 'super':
-                roleKey = process.env.SUPERS_ECRETKEY;
-                break;
+            // case 'super':
+            //     roleKey = process.env.SUPERS_ECRETKEY;
+            //     break;
             case 'admin':
-                roleKey = process.env.SECRETKEY;
+                roleKey = process.env.PRIVATE_KEY;
                 break;
             default:
-                roleKey = process.env.SECRETKEY;
+                roleKey = process.env.PRIVATE_KEY;
                 break;
         }
 

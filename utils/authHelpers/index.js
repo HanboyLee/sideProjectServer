@@ -1,0 +1,1 @@
+exports.extractAccessTokenMiddeware = require('./extractAccessTokenMiddleware');

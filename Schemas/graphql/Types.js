@@ -105,32 +105,32 @@ exports.typeDefs = gql`
 
     #User Type
     type UserType {
-        "Id of user"
-        id: ID
-        "avatar of user"
+        "Id of user."
+        id: ID!
+        "avatar of user."
         avatar: Image
-        "firstName of user"
-        firstName: String
-        "lastName of user"
-        lastName: String
-        "account of user"
-        account: String
-        "password of user"
+        "firstName of user."
+        firstName: String!
+        "lastName of user."
+        lastName: String!
+        "account of user."
+        account: String!
+        "password of user."
         password: String
-        "Orders of user"
+        "Orders of user."
         orders: [Order]
-        "Orders ID of user"
+        "Orders ID of user."
         _orders: [ID]
-        "contact of user"
+        "contact of user."
         contact: [Contact]
-        "Date of user"
+        "Date of user."
         Date: Time
     }
 
     #Auth
     type AuthData {
         "Id of User"
-        userId: ID!
+        id: ID!
         "Account of User"
         account: String!
         "token of User"
@@ -150,11 +150,6 @@ exports.typeDefs = gql`
 // #     role
 // # }
 //   #Query
-//     type Query {
-//         "get All User"
-//         getAllUsers(ids: [ID!]): [UserType]
-//         getAllUser(id: ID!): UserType
-//     }
 
 //     #Mutation
 //     type Mutation {

@@ -6,6 +6,8 @@ require('dotenv').config();
 const cors = require('cors');
 // model
 const { User } = require('./models');
+const { extractAccessTokenMiddeware } = require('./utils/authHelpers');
+
 // gql
 const { graphqlHTTP } = require('express-graphql');
 const { ApolloServer, AuthenticationError } = require('apollo-server-express');
@@ -27,36 +29,40 @@ app.use(
         },
     })
 );
+app.use(extractAccessTokenMiddeware);
 
 //graphql
 const server = new ApolloServer({
-    schema: executableSchema,
+    typeDefs: executableSchema.typeDefs,
+    resolvers: executableSchema.resolvers,
 
     context: async ({ req }) => {
         // console.log(req.headers);
         try {
-            let decodeToken;
-            const authHeader = req.headers.authorization;
-            if (!authHeader) {
-                throw new Error('you must Enter the correct account or password');
-            }
+            // console.log(req.user, 11111);
+            // let decodeToken;
+            // const authHeader = (req.headers.authorization || '').split(' ');
+            // if (!authHeader) {
+            //     throw new Error('you must Enter the correct account or password');
+            // }
 
-            const token = authHeader.split(' ')[1];
-            // console.log(token, 'token');
-            if (!token) {
-                throw new Error('you must has token');
-            }
-            //decode token 驗證
-            decodeToken = jwt.verify(token, process.env.SECRETKEY);
-            if (!decodeToken) {
-                throw new Error('The token be expires');
-            }
+            // const token = authHeader.split(' ')[1];
+            // // console.log(token, 'token');
+            // if (!token) {
+            //     throw new Error('you must has token');
+            // }
+            // //decode token 驗證
+            // decodeToken = jwt.verify(token, process.env.PRIVATE_KEY);
+            // // console.log(decodeToken, 'decodeToken');
+            // if (!decodeToken) {
+            //     throw new Error({ message: 'The token be expires', code: 401 });
+            // }
 
-            req.isAuth = true;
-            const user = await User.findById(decodeToken.userId);
-            return { ...req, user };
+            // req.isAuth = true;
+            // const user = await User.findById(decodeToken.userId);
+            return req.user;
         } catch (error) {
-            return console.error(error);
+            // return console.error(error);
         }
     },
 });
